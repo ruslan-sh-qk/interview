@@ -1,12 +1,9 @@
-import React from "react";
+import {JSX} from "react";
 
-export type TFormSwitcher = {
+export type TContentSwitcher = {
     title: string;
     description?: string;
-    buttons: TSwitcherButton[];
+    contents: TSwitcherContents;
 }
 
-export type TSwitcherButton = {
-    label: string;
-    content: React.ReactNode;
-}
+export type TSwitcherContents = { [view: string]: JSX.Element };

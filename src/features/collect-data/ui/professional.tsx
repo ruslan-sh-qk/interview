@@ -13,7 +13,7 @@ export const ProfessionalForm = () => {
 
     return (
         <>
-            <FormRenderer { ...formBuilder } />
+            {/*<FormRenderer { ...formBuilder } />*/}
         </>
     );
 }

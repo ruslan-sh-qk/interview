@@ -1,6 +1,7 @@
 import {FormBuilder} from "@/shared/utils/form-builder.utils";
 import {FormRenderer} from "@/shared/components/form-renderer";
 
+
 export const PersonalForm = () => {
     const formBuilder = new FormBuilder()
         .setTitle('Personal Information Form')
@@ -15,9 +16,14 @@ export const PersonalForm = () => {
         .addSelectField('gender', 'Gender', [ { value: 'male', label: 'Male' }, { value: 'female', label: 'Female' } ])
         .build();
 
+    const handleSubmit = (data: unknown) => {
+        console.log('Form submitted with data:', data);
+        // Handle form submission logic here, e.g., send data to an API
+    };
+
     return (
         <>
-            <FormRenderer { ...formBuilder } />
+            <FormRenderer formConfig={ formBuilder } onSubmit={ handleSubmit }/>
         </>
     );
 }
