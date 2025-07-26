@@ -63,6 +63,7 @@ function getFieldComponent(field: TFormField, renderField: ControllerRenderProps
         case 'select':
             return <BuilderSelect
                 field={ field }
+                renderField={ renderField }
                 options={ options }
                 placeholder="Please, select"
             />;
