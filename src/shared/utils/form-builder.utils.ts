@@ -1,13 +1,12 @@
 import {TFormConfig, TSelectOption} from "@/shared/types/form-builder.types";
 
+type TDefaultOptions = {
+    placeholder?: string;
+}
+
 export class FormBuilder {
 
     private readonly formConfig: TFormConfig;
-    private defaultOptions = {
-        required: false,
-        placeholder: '',
-        validation: []
-    }
 
     constructor() {
         this.formConfig = {
@@ -33,46 +32,36 @@ export class FormBuilder {
         return this;
     }
 
-    addTextField(name: string, type: 'email' | 'text' | 'number',  label: string, defaultOptions = this.defaultOptions) {
+    addTextField(name: string, type: 'email' | 'text' | 'number', label: string, defaultOptions: TDefaultOptions) {
         this.formConfig.fields.push({
             name,
             label,
             type,
-            required: defaultOptions.required || false,
             placeholder: defaultOptions.placeholder || '',
-            validation: defaultOptions.validation || []
         });
         return this;
     }
 
-    addNumberField(name: string, label: string, min: number, max: number, defaultOptions = this.defaultOptions) {
+    addNumberField(name: string, label: string, defaultOptions: TDefaultOptions) {
         this.formConfig.fields.push({
             name,
             label,
             type: 'number',
-            required: defaultOptions.required || false,
             placeholder: defaultOptions.placeholder || '',
-            min,
-            max,
-            validation: defaultOptions.validation || []
         });
         return this;
     }
 
-    addSelectField(name: string, label: string, options: TSelectOption[], defaultOptions = this.defaultOptions) {
+    addSelectField(name: string, label: string, options: TSelectOption[], defaultOptions: TDefaultOptions) {
         this.formConfig.fields.push({
             name,
             label,
             type: 'select',
-            required: defaultOptions.required,
             options,
-            validation: defaultOptions.validation
+            placeholder: defaultOptions.placeholder || '',
         });
         return this;
     }
-
-    // TODO: validation here
-
 
     build() {
         return this.formConfig;

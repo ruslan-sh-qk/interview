@@ -20,7 +20,7 @@ export const ContentSwitcher = (contentSwitcher: TContentSwitcher) => {
             <h1 className="text-2xl font-bold text-center">{ title }</h1>
             { description && <p className="text-gray-600">{ description }</p> }
 
-            <FSelect options={ options } onChange={ changeForm }/>
+            <FSelect options={ options } onChange={ changeForm } placeholder="Select Form Type"/>
 
             { content &&
                 <div className="mt-4 p-4 border rounded-lg bg-gray-50">

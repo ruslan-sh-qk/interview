@@ -10,21 +10,10 @@ export type TSelectOption = {
     label: string;
 }
 
-export type TFormFieldValidation = {
-    type: string;
-    value: number | string;
-    message: string;
-}
-
 export type TFormField = {
     name: string;
     label: string;
     type: 'text' | 'number' | 'email' | 'select';
-    required?: boolean;
     placeholder?: string;
     options?: TSelectOption[];
-    min?: number;
-    max?: number;
-    rows?: number;
-    validation?: TFormFieldValidation[];
 }

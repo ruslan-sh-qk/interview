@@ -1,5 +1,5 @@
 
-type FormValue = {
+export type FormValue = {
     label: string;
     value: string;
 };
