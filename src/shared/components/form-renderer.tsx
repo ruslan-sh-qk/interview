@@ -1,23 +1,23 @@
 "use client"
 
-import {TFormConfig, TFormField} from "@/shared/types/form-builder.types";
+import { TFormConfig, TFormField } from "@/shared/types/form-builder.types";
 
-import {Input} from "./ui/input";
-import {Button} from "./ui/button";
-import {BuilderSelect} from "./ui/builder-select";
-import {ControllerRenderProps, Form, useForm} from "react-hook-form";
-import {z} from "zod/index";
-import {FormField, FormItem} from "@/shared/components/ui/form";
+import { Form, FormField, FormItem } from "@/shared/components/ui/form";
+import { ControllerRenderProps, FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import { BuilderSelect } from "./ui/builder-select";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 type TProps = {
     formConfig: TFormConfig;
-    onSubmit: (form: TFormConfig) => void;
+    onSubmit:  SubmitHandler<FieldValues>;
 }
-
 
 export const FormRenderer = (props: TProps) => {
     const { formConfig, onSubmit } = props;
-    const form = useForm<z.infer>()
+    const form = useForm();
+
 
     return (
         <Form { ...form }>
@@ -31,7 +31,7 @@ export const FormRenderer = (props: TProps) => {
                         <FormField
                             key={ index }
                             control={ form.control }
-                            name="email"
+                            name={configField.name}
                             render={ ({ field }) => {
                                 const FieldComponent = getFieldComponent(configField, field);
                                 return (
@@ -59,7 +59,7 @@ function getFieldComponent(field: TFormField, renderField: ControllerRenderProps
         case 'text':
         case 'number':
         case 'email':
-            return <Input type={ type }/>;
+            return <Input {...field} {...renderField} />;
         case 'select':
             return <BuilderSelect
                 field={ field }
