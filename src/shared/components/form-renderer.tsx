@@ -1,6 +1,6 @@
 import {TFormConfig, TFormField} from "@/shared/types/form-builder.types";
 
-import {Form, FormField, FormItem, FormLabel} from "@/shared/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormLabel} from "@/shared/components/ui/form";
 import {ControllerRenderProps, FieldValues, SubmitHandler, useForm} from "react-hook-form";
 
 import {BuilderSelect} from "./ui/builder-select";
@@ -18,7 +18,7 @@ type TProps = {
 export const FormRenderer = (props: TProps) => {
     const { formConfig, onSubmit, schema } = props;
     const form = useForm({
-        mode: 'onBlur',
+        mode: 'onChange',
         resolver: yupResolver(schema),
     });
 
@@ -58,7 +58,7 @@ export const FormRenderer = (props: TProps) => {
                     );
 
                 }) }
-                <Button disabled={!form.formState.isValid} type="submit">{ formConfig.submitButtonText }</Button>
+                <Button disabled={ !form.formState.isValid } type="submit">{ formConfig.submitButtonText }</Button>
             </form>
         </Form>
     );
@@ -72,11 +72,11 @@ function getFieldComponent(field: TFormField, renderField: ControllerRenderProps
         case 'text':
         case 'number':
         case 'email':
-            return <Input name={renderField.name} type={type}
-                          placeholder={field.placeholder}
-                          value={renderField.value || ''}
-                          onChange={renderField.onChange}
-                          onBlur={renderField.onBlur}
+            return <Input name={ renderField.name } type={ type }
+                          placeholder={ field.placeholder }
+                          value={ renderField.value || '' }
+                          onChange={ renderField.onChange }
+                          onBlur={ renderField.onBlur }
             />;
         case 'select':
             return <BuilderSelect
@@ -84,6 +84,6 @@ function getFieldComponent(field: TFormField, renderField: ControllerRenderProps
                 renderField={ renderField }
                 options={ options }
                 placeholder="Please, select"
-            />;
+            />
     }
 }

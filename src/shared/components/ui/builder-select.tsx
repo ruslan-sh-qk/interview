@@ -1,17 +1,18 @@
-import { Input } from "@/shared/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select";
-import { TFormField } from "@/shared/types/form-builder.types";
-import { ControllerRenderProps } from "react-hook-form";
-import { FormControl, FormItem } from "./form";
+import {Input} from "@/shared/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/shared/components/ui/select";
+import {TFormField} from "@/shared/types/form-builder.types";
+import {ControllerRenderProps} from "react-hook-form";
+import {FormItem} from "./form";
 
 type TProps = {
     options: TFormField['options'];
     placeholder?: string;
     field: TFormField;
-    renderField: ControllerRenderProps ;
+    renderField: ControllerRenderProps;
+    triggerOnBlur?: () => void;
 }
 export const BuilderSelect = (props: TProps) => {
-    const { options, placeholder, renderField } = props;
+    const { options, placeholder, renderField, triggerOnBlur } = props;
 
     if (!options || options.length === 0) {
         return <Input type="text" placeholder="No options available"/>;
@@ -19,19 +20,21 @@ export const BuilderSelect = (props: TProps) => {
 
     return (
         <FormItem>
-            <Select onValueChange={ renderField.onChange } value={renderField.value} defaultValue={ renderField.value }>
-                <FormControl>
-                    <SelectTrigger className="w-full">
-                        <SelectValue defaultValue={renderField.value} placeholder={ placeholder }/>
-                    </SelectTrigger>
-                </FormControl>
+            <Select
+                value={ renderField.value || '' }
+                onValueChange={ renderField.onChange }
+                name={ renderField.name }
+            >
+                <SelectTrigger onBlur={ triggerOnBlur } className="w-full">
+                    <SelectValue placeholder={ placeholder }/>
+                </SelectTrigger>
+
                 <SelectContent>
-                    { options.map(((option, index) =>
-                        <SelectItem key={ index }
-                                    value={ option.value }>
+                    { options.map((option) => (
+                        <SelectItem key={ option.value } value={ option.value }>
                             { option.label }
-                        </SelectItem>)
-                    ) }
+                        </SelectItem>
+                    )) }
                 </SelectContent>
             </Select>
         </FormItem>
